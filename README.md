@@ -5,11 +5,13 @@ Leverages
 - Pillow
 - pystray
 
-![Screenshot](Screenshot_01.png)
+![Screenshot](screenshots/Screenshot_01.png)
 
 ![gif](screenshots/gif_razer_battery_tray.gif)
 
 ![Example Battery Icon](icons/bat_84.png) ![Example Battery Icon while Charging](icons/bat_84_c.png)
+
+Normal Icon | Charging Icon
 
 
 ## Pre-requisites
