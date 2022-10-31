@@ -29,7 +29,7 @@ python -m pip install pillow pystray
 Just copy the scripts to your system and make them executable.
 
 ```bash
-git clone git@github.com:HoroTW/RazerBatteryTray.git
+git clone https://github.com/HoroTW/RazerBatteryTray.git
 cd RazerBatteryTray
 chmod +x razer_battery_tray.py
 ```
