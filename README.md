@@ -9,9 +9,10 @@ Leverages
 
 ![gif](screenshots/gif_razer_battery_tray.gif)
 
-![Example Battery Icon](icons/bat_84.png) ![Example Battery Icon while Charging](icons/bat_84_c.png)
 
-Normal Icon | Charging Icon
+| Discharging Icon | Discharging Icon | Discharging Icon | Charging Icon |
+| --- | --- | --- | --- |
+![Example Battery Icon](icons/bat_12.png) | ![Example Battery Icon](icons/bat_34.png) | ![Example Battery Icon](icons/bat_84.png) | ![Example Battery Icon while Charging](icons/bat_43_c.png)
 
 
 ## Pre-requisites
