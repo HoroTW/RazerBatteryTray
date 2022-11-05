@@ -35,7 +35,7 @@ git clone https://github.com/HoroTW/RazerBatteryTray.git
 cd RazerBatteryTray
 chmod +x razer_battery_tray.py
 ```
-### NixOS installation::
+### NixOS installation
 Beside the same setup as above, you need these lines in your `configuration.nix`:
 You have to install `openrazer daemon` following the [official guide](https://openrazer.github.io/#nixos).
 
