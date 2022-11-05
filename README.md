@@ -28,10 +28,36 @@ python -m pip install pillow pystray
 ## Installation
 Just copy the scripts to your system and make them executable.
 
+### Manual installation for most linux systems:
+
 ```bash
 git clone https://github.com/HoroTW/RazerBatteryTray.git
 cd RazerBatteryTray
 chmod +x razer_battery_tray.py
+```
+### NixOS installation::
+Beside the same setup as above, you need these lines in your `configuration.nix`:
+You have to install `openrazer daemon` following the [official guide](https://openrazer.github.io/#nixos).
+
+To get the client working, you need the following packages. 
+ - libappindicator
+ - python3Packages.openrazer
+ - python3Packages.pystray
+ - python3Packages.pillow
+
+For use with a `nix-shell` here is a example `shell.nix`:
+```nix
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  buildInputs = [
+    pkgs.openrazer-daemon
+    pkgs.python3Packages.openrazer
+    pkgs.python3Packages.pystray
+    pkgs.python3Packages.pillow
+    pkgs.libappindicator
+  ];
+}
 ```
 
 ## Usage
