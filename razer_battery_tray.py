@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-# This script needs
-# An installed openrazer-daemon (e.g. if Polychromatic is working this should be the case)
-
-# python3 -m pip install Pillow pystray
-
 import os
 import sys
 from time import sleep
