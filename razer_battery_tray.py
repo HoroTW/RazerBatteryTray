@@ -8,14 +8,21 @@ from pystray import Icon, Menu, MenuItem
 import openrazer
 import openrazer.client
 import PIL.Image
+from functools import lru_cache
 
 RESIZE_TO_PIXELS = 32
-UPDATE_INTERVAL_IN_SECS = 2
+SCALE = (RESIZE_TO_PIXELS, RESIZE_TO_PIXELS)
+UPDATE_INTERVAL_IN_SECS = 1 / 5
 
 print("Starting Razer Battery Tray")
 
 script_path = os.path.dirname(__file__)
 icons_path = os.path.join(script_path, "icons")
+
+if hasattr(PIL.Image, "Resampling"):  # Pillow >= 9.1.0
+    DOWNSCALE_METHOD = PIL.Image.Resampling.LANCZOS
+else:  # Pillow < 9.1.0
+    DOWNSCALE_METHOD = PIL.Image.LANCZOS
 
 try:
     print("Pillow version: ", PIL.__version__)
@@ -31,7 +38,8 @@ a = openrazer.client.DeviceManager()
 if len(sys.argv) < 2:
     print("Missing device name as argument")
     print("Usage: razer_bat_tray.py <part_of_the_device_name>")
-    print("Example: razer_bat_tray.py 'Razer Viper Ultimate'\n")
+    print("Example 1: razer_bat_tray.py 'Razer Viper Ultimate'\n")
+    print("Example 2: razer_bat_tray.py 'DeathAdder'\n")
 
     print("Listing Available Devices:")
     for dev in a.devices:  # print all bat devices
@@ -48,10 +56,11 @@ for dev in a.devices:  # find the device we want to monitor
         break
 
 if device is None:
-    print("Device not found, check the name and try again, maybe use less of the name?")
+    print("Device not found, check the name and try again.")
     sys.exit(1)
 
 
+@lru_cache(maxsize=256)
 def get_icon(bat_level, charging=False):
     """
     Get the icon for the given battery level
@@ -65,20 +74,26 @@ def get_icon(bat_level, charging=False):
 def setup_icon(icon):
     icon.visible = True
     sleep(1)  # wait for the icon to be visible
+    bat_level = device.battery_level
+    is_charging = device.is_charging
 
-    # animate the icon to current battery level
-    for i in range(100, 0, -3):
+    print("Animating icon to current battery level")
+    for i in range(100, 0, -4):
         icon.icon = get_icon(i)
-        sleep(0.02)
-    for i in range(0, device.battery_level + 1, 2):
+        sleep(1 / 30)
+    for i in range(0, bat_level + 1, 2):
         icon.icon = get_icon(i)
-        sleep(0.03)
+        sleep(1 / 30)
+    print(f"Icon set to {bat_level}% {'(charging)' if is_charging else ''}")
 
     # start the update loop
     while True:
         bat_level = device.battery_level
-        icon.icon = get_icon(bat_level, device.is_charging)
-        print(f"Icon set to {bat_level} %")
+        is_charging = device.is_charging
+        cur_icon = get_icon(bat_level, is_charging)
+        if cur_icon != icon.icon:
+            icon.icon = cur_icon
+            print(f"Icon set to {bat_level}% {'(charging)' if is_charging else ''}")
         sleep(UPDATE_INTERVAL_IN_SECS)
 
 
