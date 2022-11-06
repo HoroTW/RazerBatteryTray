@@ -39,19 +39,21 @@ chmod +x razer_battery_tray.py
 Beside the same setup as above you have to install `openrazer daemon` following
 the [official guide](https://openrazer.github.io/#nixos).
 
-Then to get the client working, you need the following packages. 
- - libappindicator
- - python3Packages.openrazer
- - python3Packages.pystray
- - python3Packages.pillow
+If you use `GNOME` with `WAYLAND` you have to also add and **MANUALLY!!** turn on the extension.
+```nix
+  environment.systemPackages = [
+    pkgs.gnomeExtensions.appindicator
+  ];
+```
+In the `Extensions` app the extension is called `AppIndicator and KStatusNotifierItem Support`.
 
+To get the client working, you need some more packages.
 For use with a `nix-shell` here is a example `shell.nix`:
 ```nix
 { pkgs ? import <nixpkgs> {} }:
 
 pkgs.mkShell {
   buildInputs = [
-    pkgs.openrazer-daemon
     pkgs.python3Packages.openrazer
     pkgs.python3Packages.pystray
     pkgs.python3Packages.pillow
