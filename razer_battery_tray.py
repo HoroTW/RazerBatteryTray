@@ -5,7 +5,6 @@ import sys
 from time import sleep
 import pystray
 from pystray import Icon, Menu, MenuItem
-import openrazer
 import openrazer.client
 import PIL.Image
 from functools import lru_cache
@@ -26,19 +25,26 @@ else:  # Pillow < 9.1.0
 
 try:
     print("Pillow version: ", PIL.__version__)
-    print("Pystary version: ", pystray.__version__)
-    print("Openrazer version: ", openrazer.__version__)
+    print("Openrazer version: ", openrazer.client.__version__)
     print("Python version: ", sys.version)
     print("Path of the icons:", icons_path)
+    
+    try:
+        if sys.version_info < (3, 8):
+            raise Exception("Python 3.8 or higher is required")
+        from importlib.metadata import version
+        print("Pystray version: ", version("pystray"))
+    except:
+        print("Cannot get pystray version (Python 3.8+ is required for that..):")
 except:
-    print("Failed to get version info, please check your installation")
+    print("Failed to get all version infos, please check your installation")
 
 
 a = openrazer.client.DeviceManager()
 if len(sys.argv) < 2:
-    print("Missing device name as argument")
+    print("\n!! OOPS: Missing device name as argument !!\n")
     print("Usage: razer_bat_tray.py <part_of_the_device_name>")
-    print("Example 1: razer_bat_tray.py 'Razer Viper Ultimate'\n")
+    print("Example 1: razer_bat_tray.py 'Razer Viper Ultimate'")
     print("Example 2: razer_bat_tray.py 'DeathAdder'\n")
 
     print("Listing Available Devices:")

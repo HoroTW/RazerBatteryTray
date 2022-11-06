@@ -36,10 +36,10 @@ cd RazerBatteryTray
 chmod +x razer_battery_tray.py
 ```
 ### NixOS installation
-Beside the same setup as above, you need these lines in your `configuration.nix`:
-You have to install `openrazer daemon` following the [official guide](https://openrazer.github.io/#nixos).
+Beside the same setup as above you have to install `openrazer daemon` following
+the [official guide](https://openrazer.github.io/#nixos).
 
-To get the client working, you need the following packages. 
+Then to get the client working, you need the following packages. 
  - libappindicator
  - python3Packages.openrazer
  - python3Packages.pystray
