@@ -15,6 +15,8 @@ Leverages
 ![Example Battery Icon](icons/bat_12.png) | ![Example Battery Icon](icons/bat_34.png) | ![Example Battery Icon](icons/bat_84.png) | ![Example Battery Icon while Charging](icons/bat_43_c.png)
 
 
+**If you like these small script a ⭐ star would be really nice 😉**
+
 ## Pre-requisites
 So you need to install Openrazer in your system.
 Additionally you need Pillow and pystray. 
