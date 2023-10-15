@@ -15,7 +15,8 @@ UPDATE_INTERVAL_IN_SECS = 1 / 5
 
 print("Starting Razer Battery Tray")
 
-script_path = os.path.dirname(__file__)
+real_path = os.path.realpath(__file__) # Finding target of Symlink
+script_path = os.path.dirname(real_path)
 icons_path = os.path.join(script_path, "icons")
 
 if hasattr(PIL.Image, "Resampling"):  # Pillow >= 9.1.0
