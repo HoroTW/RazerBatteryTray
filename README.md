@@ -73,8 +73,8 @@ Then run it with a part of the device name as argument.
 ./razer_battery_tray.py
 
 Missing device name as argument
-Usage: razer_bat_tray.py <part_of_the_device_name>
-Example: razer_bat_tray.py 'Razer Viper Ultimate'
+Usage: razer_battery_tray.py <part_of_the_device_name>
+Example: razer_battery_tray.py 'Razer Viper Ultimate'
 
 Listing Available Devices:
 Razer Viper Ultimate (Wireless) 
