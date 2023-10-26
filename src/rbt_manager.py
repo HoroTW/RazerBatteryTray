@@ -44,6 +44,7 @@ class RazerBatteryTrayManager:
         logger.debug(f"Path of the icons: {icon_path}")
         self.iconpath = icon_path
         self.update_interval_in_secs = update_interval_in_secs
+        self.last_battery_level = 0
         self.scale = scale
 
     def activate(self):
@@ -123,6 +124,16 @@ class RazerBatteryTrayManager:
                 icon.icon = self.get_icon(
                     bat_level, is_charging
                 )  # needed to update the icon
+                self.last_battery_level = bat_level # prevent wrong sleep detection
+
+            # check if device is probably sleeping (battery level is spontaneously 0)
+            if (bat_level == 0 # that is the case when it is sleeping
+                and not is_charging  # if it is charging it is not sleeping
+                and (self.last_battery_level - bat_level) >= 5 # there was a jump of at least 5%
+                and self.last_battery_level != 0 # if it was 0 it's not sleeping
+                ):
+                logger.debug("Device is probably sleeping --> reusing last battery level")
+                bat_level = self.last_battery_level
 
             cur_icon = self.get_icon(bat_level, is_charging)
             if cur_icon != icon.icon:
@@ -130,4 +141,5 @@ class RazerBatteryTrayManager:
                 logger.debug(
                     f"Icon set to {bat_level}% {'(charging)' if is_charging else ''}"
                 )
+            self.last_battery_level = bat_level # update the last battery level
             sleep(self.update_interval_in_secs)
