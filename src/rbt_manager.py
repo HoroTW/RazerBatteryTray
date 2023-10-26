@@ -54,6 +54,7 @@ class RazerBatteryTrayManager:
         tray_icon = Icon(
             "BatteryIcon",
             self.get_icon(100),
+            title=f"{self.device.name}",
             menu=Menu(
                 MenuItem(
                     f'Exit Battery Viewer of "{self.device.name}"', lambda: os._exit(0)
