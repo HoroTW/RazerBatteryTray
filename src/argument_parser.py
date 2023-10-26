@@ -23,10 +23,10 @@ class ArgumentParser:
 Usage: {self.executable_name} [OPTIONS] <part_of_the_device_name>
 
 OPTIONS:
-  --help                Print this help message
+  --help, -h            Print this help message
   --list, -l            List all available devices
-  --list-all            Lists all devices even if they don't have a battery
-  --parsable            Be less verbose so that the output is easier to parse
+  --list-all, -a        Lists all devices even if they don't have a battery
+  --parsable, -p        Be less verbose so that the output is easier to parse
 
   <part_of_the_device_name>: The name of the device to use. Can be a substring of
                              the full device name.
@@ -48,7 +48,7 @@ DESCRIPTION:
         options = {"verbose": True}
 
         # check if an arg is --help
-        if any(arg == "--help" for arg in sys.argv):
+        if any( (arg == "--help" or arg == "-h") for arg in sys.argv):
             self.print_usage_and_exit(0)
 
         # start normal argument parsing
@@ -59,10 +59,10 @@ DESCRIPTION:
             if arg == "--list" or arg == "-l":
                 sys.argv.pop(i)
                 action = "list"
-            elif arg == "--list-all":
+            elif arg == "--list-all" or arg == "-a":
                 sys.argv.pop(i)
                 action = "list-all"
-            elif arg == "--parsable":
+            elif arg == "--parsable" or arg == "-p":
                 sys.argv.pop(i)
                 options["verbose"] = False # it is better parsable if it is less verbose
             else:
