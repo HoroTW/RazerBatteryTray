@@ -23,10 +23,11 @@ class ArgumentParser:
 Usage: {self.executable_name} [OPTIONS] <part_of_the_device_name>
 
 OPTIONS:
-  --help, -h            Print this help message
-  --list, -l            List all available devices
-  --list-all, -a        Lists all devices even if they don't have a battery
-  --parsable, -p        Be less verbose so that the output is easier to parse
+  --help, -h                Print this help message
+  --list, -l                List all available devices
+  --list-all, -a            Lists all devices even if they don't have a battery
+  --parsable, -p            Be less verbose so that the output is easier to parse
+  --quit-on-disconnect, -q  Quit when the device is disconnected (instead of waiting for a reconnect)
 
   <part_of_the_device_name>: The name of the device to use. Can be a substring of
                              the full device name.
@@ -45,7 +46,7 @@ DESCRIPTION:
     def parse_args(self):
         action = None # the action to perform
         part_of_the_device_name = None
-        options = {"verbose": True}
+        options = {"verbose": True, "quit_on_disconnect": False}
 
         # check if an arg is --help
         if any( (arg == "--help" or arg == "-h") for arg in sys.argv):
@@ -65,6 +66,9 @@ DESCRIPTION:
             elif arg == "--parsable" or arg == "-p":
                 sys.argv.pop(i)
                 options["verbose"] = False # it is better parsable if it is less verbose
+            elif arg == "--quit-on-disconnect" or arg == "-q":
+                sys.argv.pop(i)
+                options["quit_on_disconnect"] = True
             else:
                 i += 1
 

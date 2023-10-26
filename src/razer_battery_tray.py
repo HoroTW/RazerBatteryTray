@@ -23,12 +23,13 @@ if __name__ == "__main__":
         icon_path=icon_path,
         update_interval_in_secs=UPDATE_INTERVAL_IN_SECS,
         scale=(RESIZE_TO_PIXELS, RESIZE_TO_PIXELS),
+        options=options,
     )
 
     if action == "list":
-        rbtm.list_devices(list_all=False, verbose=options["verbose"])
+        rbtm.list_devices(list_all=False)
     elif action == "list-all":
-        rbtm.list_devices(list_all=True, verbose=options["verbose"])
+        rbtm.list_devices(list_all=True)
     else:
         rbtm.set_device_from_name(part_of_device_name)
         rbtm.activate()  # start the tray icon loop

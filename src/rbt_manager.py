@@ -12,7 +12,7 @@ import PIL.Image
 
 
 class RazerBatteryTrayManager:
-    def __init__(self, icon_path, update_interval_in_secs, scale):
+    def __init__(self, icon_path, update_interval_in_secs, scale, options: dict):
         logger.debug("Creating RazerBatteryTrayManager")
         try:
             logger.debug(f"Python version: {sys.version}")
@@ -40,6 +40,7 @@ class RazerBatteryTrayManager:
             self.downscale_method = PIL.Image.LANCZOS
 
         self.mgr = openrazer.client.DeviceManager()
+        self.options = options
         self.device = None
         logger.debug(f"Path of the icons: {icon_path}")
         self.iconpath = icon_path
@@ -64,7 +65,9 @@ class RazerBatteryTrayManager:
         )
         tray_icon.run(setup=self.setup_icon)
 
-    def list_devices(self, list_all=False, verbose=True):
+    def list_devices(self, list_all=False):
+        verbose = self.options["verbose"]
+
         print("Listing Available Devices:") if verbose else None
 
         for dev in self.mgr.devices:  # print all bat devices
@@ -110,6 +113,10 @@ class RazerBatteryTrayManager:
                 bat_level = self.device.battery_level
                 is_charging = self.device.is_charging
             except:
+                if self.options["quit_on_disconnect"]:
+                    logger.debug("Device disconnected --> exiting")
+                    icon.stop() # stop the icon
+                    return # exit the function
                 logger.debug("Device currently not connected --> hiding icon")
                 icon.icon = self.get_icon(0)  # (0% is better than the last icon)
                 sleep(1)  # some desktops need a little time to hide the icon
