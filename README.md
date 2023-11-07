@@ -9,6 +9,23 @@ Leverages
 
 ![gif](screenshots/gif_razer_battery_tray.gif)
 
+## Latest update
+### Added
+- `--list`, `--list-all` (all devices including those without battery) and `--parsable` (be less verbose) options.
+- `razer-battery-icon --list --parsable` gives now:
+   Razer Naga Pro (Wired/Wireless)
+
+### Fixes
+- Fixed crash on device disconnect.
+  Added a `--quit-on-disconnect` for people who prefer the old way (e.g. you could restart the script on device connect using udev rules)
+  The default is that the script hides the icon into the overflow and sets the battery percentage to 0% and waits for the device to come back ^^
+
+### Improvements:
+- Logging support:
+  Loglevel can be controlled using an env var like that `LOG_LEVEL=DEBUG` Possible is ERROR, WARNING (default), INFO, DEBUG
+-  Tray Icon hover over shows now the device name
+-  Added a cache and a sleep detection for devices so the battery does not show 0 when device goes to sleep.
+
 
 | Discharging Icon | Discharging Icon | Discharging Icon | Charging Icon |
 | --- | --- | --- | --- |
