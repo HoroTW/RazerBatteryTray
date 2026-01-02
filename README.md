@@ -44,6 +44,11 @@ You can install them with pip:
 python -m pip install pillow pystray
 ```
 
+Note:
+For some wayland desktops you might need to install appindicator to get the tray icon: [Link to the pystray documentation](https://pystray.readthedocs.io/en/latest/usage.html#supported-backends)
+
+If you have issues with displaying the tray icon search for your desktop environment and appindicator to find out which one you might need.
+
 ## Installation
 Just copy the scripts to your system and make them executable.
 
