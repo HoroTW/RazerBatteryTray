@@ -15,7 +15,8 @@ real_path = os.path.realpath(__file__)  # Finding target of Symlink
 script_path = Path(os.path.dirname(real_path))
 icon_path = os.path.join(script_path.parent, "icons")
 
-if __name__ == "__main__":
+
+def main():
     action, options, part_of_device_name = ArgumentParser(executable_name).parse_args()
     logger.debug(f"Parsed arguments: {action}, {options}, {part_of_device_name}")
 
@@ -35,3 +36,7 @@ if __name__ == "__main__":
         rbtm.activate()  # start the tray icon loop
 
     sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

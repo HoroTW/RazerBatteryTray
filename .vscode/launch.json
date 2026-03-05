@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Debug Razer with viper",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "src/razer_battery_tray.py",
             "args": ["viper"],
             "console": "integratedTerminal",
             "justMyCode": true

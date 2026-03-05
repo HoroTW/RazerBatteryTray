@@ -59,6 +59,17 @@ git clone https://github.com/HoroTW/RazerBatteryTray.git
 cd RazerBatteryTray
 chmod +x razer_battery_tray.py
 ```
+
+### Using uv
+```bash
+# To install this git repo in a location we can use 
+# uv --from git+https://github.com/HoroTW/RazerBatteryTray
+git clone https://github.com/HoroTW/RazerBatteryTray && cd RazerBatteryTray
+# The venv needs to use the same python version as the system one where openrazer is installed
+uv venv --python $(which python3) --system-site-packages
+uv run razer-battery-tray
+```
+
 ### NixOS installation
 Beside the same setup as above you have to install `openrazer daemon` following
 the [official guide](https://openrazer.github.io/#nixos).
