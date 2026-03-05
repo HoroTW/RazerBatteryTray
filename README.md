@@ -66,6 +66,9 @@ git clone https://github.com/HoroTW/RazerBatteryTray && cd RazerBatteryTray
 # The venv needs to use the same python version as the system one where openrazer is installed
 uv venv --python $(which python3) --system-site-packages
 uv run razer-battery-tray
+
+# To install it globally we can simply add a symlink (only after first uv run)
+ln -fs $(pwd)/.venv/bin/razer-battery-tray ~/.local/bin/razer-battery-tray
 ```
 
 ### NixOS installation
